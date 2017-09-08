@@ -1,3 +1,5 @@
+package object;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.ImageIcon;
@@ -107,6 +109,11 @@ public class DadosPessoais {
 		lista.add(Integer.parseInt("20"+d.substring(6, 8)));
 		return lista;
 	}
+	
+	@Override
+	public String toString() {
+		return getNome() + ","+this.getDataNascimento()+","+this.getSexo()+","+this.getRg()+","+this.getCpf()+","+this.getEmail()+","+
+				this.getTelefone()+","+this.getEndereco();
+	}
+	
 }
-
-

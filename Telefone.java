@@ -1,7 +1,17 @@
+package object;
 public class Telefone {
-
+	
 	private String prefixo, numero, operadora;
 	
+	public Telefone() {
+		this("","","");
+	}
+	
+	public Telefone(String prefixo, String numero, String operadora) {
+		this.prefixo = prefixo;
+		this.numero = numero;
+		this.operadora = operadora;
+	}
 	public String getPrefixo() {
 		return prefixo;
 	}
@@ -21,4 +31,9 @@ public class Telefone {
 		this.operadora = operadora;
 	}
 	
+	
+	@Override
+	public String toString() {
+		return getOperadora()+"," + getPrefixo() + "," + getNumero();
+	}
 }

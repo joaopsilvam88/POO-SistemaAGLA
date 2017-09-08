@@ -1,3 +1,4 @@
+package object;
 public class Endereco {
 
 	private String estado;
@@ -7,6 +8,18 @@ public class Endereco {
 	private String bairro;
 	private String complemento;
 	
+	public Endereco() {
+		this("","","","",0,"");
+	}
+	
+	public Endereco(String estado, String cidade, String logradouro,String bairro, int numero, String complemento) {
+		this.estado = estado;
+		this.cidade = cidade;
+		this.logradouro = logradouro;
+		this.numero = numero;
+		this.bairro = bairro;
+		this.complemento = complemento;
+	}
 	public String getEstado() {
 		return estado;
 	}
@@ -42,6 +55,12 @@ public class Endereco {
 	}
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
+	}
+	
+	@Override
+	public String toString() {
+		return getEstado() + "," + getCidade() + "," + getBairro() + ","
+				+getLogradouro() + "," + getNumero() + "," + getComplemento();
 	}
 	
 }
