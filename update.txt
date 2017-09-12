@@ -1,8 +1,9 @@
 12/09/2017 - JP
-
-
-12/09/2017 - benedito.
-
+  
+  
+12/09/2017 - benedito
+  
+  
 12/09/2017 - hercules
   arquivo instrucoes.txt colocado no projeto <nao precisa baixar sao apenas instrucoes. Leia
-  e seja feliz>
+  e seja feliz>;
