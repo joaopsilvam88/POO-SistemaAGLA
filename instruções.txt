@@ -1,0 +1,5 @@
+pacotes:
+  object - só para as classes objetos, e as interfaces
+  main - para interface gŕafica e o principal
+  exception - Ficam as classes de todas as exeçes
+  db - classes de bando de dados para .txt e .bd
