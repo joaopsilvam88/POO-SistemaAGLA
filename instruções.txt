@@ -1,10 +1,10 @@
+- ATENCAO -> Informe, no arquivo updates.txt, as modificacoes efetuadas após envio pro github. (resuma ;) )
+Pastas:
+  Nome do projeto eh Sistema AGLA;
+  Para os arquivos de banco de dados, .txt ou .bd, criar uma pasta em db dentro da pasta Sistema AGLA;
+
 pacotes:
   object - só para as classes objetos, e as interfaces;
   main - para interface gŕafica e o principal;
   exception - Ficam as classes de todas as exeçes;
   db - classes de bando de dados para .txt e .bd;
-
-
-Pastas:
-  Nome do projeto eh Sistema AGLA;
-  Para os arquivos de banco de dados, .txt ou .bd, criar uma pasta em db dentro da pasta Sistema AGLA;
