@@ -8,3 +8,8 @@ pacotes:
   main - para interface gŕafica e o principal;
   exception - Ficam as classes de todas as exeçes;
   db - classes de bando de dados para .txt e .bd;
+
+
+Benedito - Ficou com a parte do Boletim web, Notas web, Histórico Escolar, acho que só;
+Hercules - Banco de dados, Interface Grafica;
+JP - Sistema, diagrama, Interface Grafica;
