@@ -24,5 +24,7 @@ RESUMO DO PROJETO
 
       E.E.E.F.M. Antônio Gregório de Lacerda.
 
-      
+6. Funcionamento
+
+      O SisAgla é um sistema Deskop voltado para o cadastramento e a remoção de alunos e professores da instituição mencionada, onde são encontrados também todos os dados pessoais dos mesmos, apresentando também seus documentos, históricos e boletim escolar.
       
