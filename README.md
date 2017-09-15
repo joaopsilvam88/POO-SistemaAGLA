@@ -1,6 +1,6 @@
 # POO-SistemaAGLA
 
-1. RESUMO DO PROJETO
+RESUMO DO PROJETO
 
 1.1. Nome do Projeto
       Sistema Agla
@@ -15,7 +15,8 @@
       Tornar mais rápido o acesso aos dados das pessoas cadastradas.
       Reduzir o uso de papel para o armazenamento dos dados, tornando mais fácil o acesso e de certa forma o desenvolvimento sustentável.
 
-2. CONTEXTO DO PROJETO
+1.5. Instituição Cliente
+      E.E.E.F.M. Antônio Gregório de Lacerda.
 
-2.1. Instituição 
+      
       
