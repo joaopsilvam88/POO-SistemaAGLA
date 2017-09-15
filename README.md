@@ -1,7 +1,7 @@
 # POO-SistemaAGLA
 
 RESUMO DO PROJETO
-\n
+
 
 1. Nome do Projeto
 
@@ -18,7 +18,6 @@ RESUMO DO PROJETO
 4. Benefícios Esperados
 
       Tornar mais rápido o acesso aos dados das pessoas cadastradas.
-      
       Reduzir o uso de papel para o armazenamento dos dados, tornando mais fácil o acesso e de certa forma o desenvolvimento sustentável.
 
 5. Instituição Cliente
