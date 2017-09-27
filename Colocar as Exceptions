@@ -1,0 +1,76 @@
+import java.util.*;
+
+import com.poo.sisagla.exceptions.JaExisteException;
+import com.poo.sisagla.exceptions.NaoExisteException;
+
+public class Sistema implements SistemaInterface{
+
+	Map<String, Professor> professores;
+	Map<String, Aluno> alunos;
+	
+	public Sistema(){
+		this(new HashMap<String, Professor>(), new HashMap<String, Aluno>());
+	}
+	public Sistema(Map<String, Professor> professores, Map<String, Aluno> alunos) {
+		this.professores = professores;
+		this.alunos = alunos;
+	}
+	public Map<String, Professor> getProfessores() throws NaoExisteException {
+		if(professores.isEmpty()){
+			throw new NaoExisteException("Ainda não foi cadastrado nenhum professor no sistema.");
+		}
+		return professores;
+	}
+	public void setProfessores(Map<String, Professor> professores) {
+		this.professores = professores;
+	}
+	public Map<String, Aluno> getAlunos() throws NaoExisteException {
+		if(alunos.isEmpty()){
+			throw new NaoExisteException("Ainda não foi cadastrado nenhum aluno no sistema.");
+		}
+		return alunos;
+	}
+	public void setAlunos(Map<String, Aluno> alunos) {
+		this.alunos = alunos;
+	}
+	public void addAluno(String cpf, Aluno aluno) throws JaExisteException{
+		if(alunos.containsKey(cpf)){
+			throw new JaExisteException("Esse aluno já foi cadastrado no sistema.");
+		}
+		alunos.put(cpf, aluno);
+	}
+	public void addProfessor(String cpf, Professor professor){
+		professores.put(cpf, professor);
+	}
+	public void removeAluno(String cpf){
+		alunos.remove(cpf);
+	}
+	public void removeProfessor(String cpf){
+		professores.remove(cpf);
+	}
+	public String verificarAluno(String cpf){
+		return alunos.get(cpf).toString();
+	}
+	public Professor verificarProfessor(String cpf){
+		return professores.get(cpf);
+	}
+	public List<Aluno> verificarTurma(String ano){
+		List<Aluno> lista = new ArrayList<Aluno>();
+		for(Aluno a: alunos.values()){
+			if(a.getAno().equals(ano)){
+				lista.add(a);
+			}
+		}
+		return lista;
+	}
+	public List<Professor> professoresDaDisciplina(String nomeDisciplina){
+		List<Professor> lista = new ArrayList<Professor>();
+		for(Professor p: professores.values()){
+			if(p.getDisciplinas().contains(nomeDisciplina)){
+				lista.add(p);
+			}
+		}
+		return lista;
+	}
+
+}
