@@ -22,4 +22,6 @@
   otmizacao nas query's do banco de dados;
   otmizacao de codigos no banco de dados;
   insercao de mais 4 metodos;
-  variaveis globais/final como acesso a tabelas db
+  variaveis globais/final como acesso a tabelas db;
+  mudanca na inteface DataBaseInterface;
+  pasta de com classes de arquivos teste JUnit database
