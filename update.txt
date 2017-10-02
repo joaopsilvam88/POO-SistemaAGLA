@@ -15,3 +15,7 @@
   Colocando assim, getters e setters para as mesmas;
   Excluí todas as classes e coloquei nas pastas;
   Coloquei pasta bd
+  
+02/10/2017
+  Nova classe de exception;
+  toString no Aluno
