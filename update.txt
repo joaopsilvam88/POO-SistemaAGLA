@@ -16,6 +16,9 @@
   Excluí todas as classes e coloquei nas pastas;
   Coloquei pasta bd
   
-02/10/2017
+02/10/2017 - hercules
   Nova classe de exception;
-  toString no Aluno
+  toString no Aluno;
+  otmizacao nas query's do banco de dados;
+  otmizacao de codigos no banco de dados;
+  insercao de mais 4 metodos;
