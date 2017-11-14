@@ -1,4 +1,4 @@
-package br.com.agla.dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.alga.exceptions.*;
+import exception.*;
 import Sistema.*;
 
 
@@ -44,7 +44,7 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 
 			try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
 				pstmt.setString(1, aluno.getMatricula());
-				pstmt.setString(2, aluno.getTurma());
+				pstmt.setString(2, aluno.getAno());
 
 				pstmt.execute();
 
@@ -119,7 +119,7 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 			try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
 				pstmt.setString(1, aluno.getMatricula()); // matricula
-				pstmt.setString(2, aluno.getTurma()); // ano
+				pstmt.setString(2, aluno.getAno()); // ano
 				pstmt.setInt(3, id); // id continua sendo o mesmo
 
 				pstmt.executeUpdate();
@@ -314,7 +314,7 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 				if (rs.next()) {
 					aluno.setId(rs.getInt("idAluno"));
 					aluno.setMatricula(rs.getString("matricula"));
-					aluno.setTurma(rs.getString("ano"));
+					aluno.setAno(rs.getString("ano"));
 				}
 				rs.close(); // fechando rs
 			} catch (SQLException ex) {
@@ -435,7 +435,7 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 				Aluno a = new Aluno();
 				a.setId(rs.getInt("idAluno"));
 				a.setMatricula(rs.getString("matricula"));
-				a.setTurma(rs.getString("ano"));
+				a.setAno(rs.getString("ano"));
 				temp.add(a);
 			}
 
@@ -573,7 +573,7 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 				// Aluno
 				aluno.setId(rs.getInt("idAluno"));
 				aluno.setMatricula(rs.getString("matricula"));
-				aluno.setTurma(rs.getString("ano"));
+				aluno.setAno(rs.getString("ano"));
 				
 				// Telefone
 				Telefone telefone = new Telefone();
@@ -692,7 +692,7 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 				// aluno
 				a.setId(id);
 				a.setMatricula(rs.getString("matricula"));
-				a.setTurma(rs.getString("ano"));
+				a.setAno(rs.getString("ano"));
 				
 				// Endereco
 				Endereco endereco = new Endereco();
@@ -815,7 +815,7 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 	// TODO: Ainda tirar os bugs, mas ta chegando lah
 	/**
 	 * @param letra eh um char que seria as letras que o usuario esta digitando
-	 * <br>ex: <e>her</e> <- 'r' È a letra que o usu·rio acabou de digitar </br>
+	 * <br>ex: <e>her</e> <- 'r' √© a letra que o usu√°rio acabou de digitar </br>
 	 * 
 	 * 
 	 * 
@@ -890,7 +890,7 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 	
 	
 	/**
-	 * Retorna uma matriz com os aluonos que tenham o nome passado como par‚metro
+	 * Retorna uma matriz com os aluonos que tenham o nome passado como par√¢metro
 	 * <br><b>obs: O nome pode ser de diversas formas <b></br>
 	 * 
 	 * @param String Nome do aluno
@@ -903,7 +903,7 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 		String sqlQueryID= new StringBuilder().append("SELECT id_aluno, nome FROM ")
 				.append(this.DADOS_PESSOAIS_ALUNO).append(" WHERE nome=?").toString();
 		
-		// … um pouco bruto usar um array com 1000 'caixinhas'
+		// √â um pouco bruto usar um array com 1000 'caixinhas'
 		int[] ids = new int[1000];
 		int i=0;
 		try (PreparedStatement pstmt = connection.prepareStatement(sqlQueryID)) {
@@ -962,7 +962,7 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 	}
 	
 	/**
-	 * Retorna uma matriz com os alunos que tenham o mesmo primeiro nome passado como par‚metro
+	 * Retorna uma matriz com os alunos que tenham o mesmo primeiro nome passado como par√¢metro
 	 * <br><b>obs: O nome pode ser de diversas formas <b></br>
 	 * 
 	 * @param String Primeiro nome do aluno EX: Hercules
@@ -973,7 +973,7 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 	public String[][] pesquisaPrimeiroNomes(String nome) throws ErroConexaoException{
 		String sqlQueryID= new StringBuilder().append("SELECT id_aluno,nome FROM ")
 				.append(this.DADOS_PESSOAIS_ALUNO).toString();
-		// … um pouco bruto usar um array com 1000 'caixinhas'
+		// √â um pouco bruto usar um array com 1000 'caixinhas'
 		int[] ids = new int[1000];
 		int i=0;
 		try (PreparedStatement pstmt = connection.prepareStatement(sqlQueryID);
@@ -1030,7 +1030,7 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 	}
 	
 	/**
-	 *@param String nome - pode ser uma frase inteira que ele ir· pegar apenas a primeira letra
+	 *@param String nome - pode ser uma frase inteira que ele ir√° pegar apenas a primeira letra
 	 * 
 	 * 
 	 * 
@@ -1039,7 +1039,7 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 		String sqlQueryID= new StringBuilder().append("SELECT id_aluno,nome FROM ")
 				.append(this.DADOS_PESSOAIS_ALUNO).toString();
 		
-		// … um pouco bruto usar um array com 1000 'caixinhas'
+		// √â um pouco bruto usar um array com 1000 'caixinhas'
 		int[] ids = new int[1000];
 		int i=0;
 		try (PreparedStatement pstmt = connection.prepareStatement(sqlQueryID);
@@ -1096,17 +1096,18 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 	}
 	
 	
+	
+	// TODO: COLOCAR O metodo que pegue o boletim
 	/**
 	 * @throws ErroConexaoException 
 	 * @throws NaoExisteException 
-	 * 
 	 * 
 	 * */
 	public Aluno[] nomesStartWith(String nome) throws ErroConexaoException, NaoExisteException{
 		String sqlQueryID= new StringBuilder().append("SELECT id_aluno,nome,cpf FROM ")
 				.append(this.DADOS_PESSOAIS_ALUNO).toString();
 		
-		// … um pouco bruto usar um array com 1000 'caixinhas'
+		// √â um pouco bruto usar um array com 1000 'caixinhas'
 		//int[] ids = new int[1000];
 		int i=0;
 		
@@ -1117,7 +1118,7 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 			
 			while(rs.next()) {
 				// pegando id's dos nomes iguais ignorando maiusculas e minusculas
-				if(!nome.equals("") && rs.getString("nome").toUpperCase().startsWith(nome.toUpperCase())) {
+				if(rs.getString("nome").toUpperCase().startsWith(nome.toUpperCase())) {
 					//ids[i] = rs.getInt("id_aluno");
 					cpfs[i] = rs.getString("cpf");
 					i++;
@@ -1138,28 +1139,6 @@ public class AlunoDAO implements OperacoesAlunoDAO {
 		
 		return dados;
 	}
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
