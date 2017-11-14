@@ -1,12 +1,12 @@
 package exception;
 
-public class TurmaVaziaException extends Exception {
+public class DisciplinaJaExisteException extends Exception {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public TurmaVaziaException(String s) {
+	public DisciplinaJaExisteException(String s) {
 		super(s);
 	}
 }

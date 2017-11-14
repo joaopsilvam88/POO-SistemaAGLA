@@ -1,13 +1,12 @@
 package exception;
 
-public class NaoExisteException extends Exception {
-	
+public class NotaJaInformadaException extends Exception {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public NaoExisteException(String msg){
+	public NotaJaInformadaException(String msg) {
 		super(msg);
 	}
 }

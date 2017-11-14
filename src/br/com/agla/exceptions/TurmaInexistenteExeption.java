@@ -1,4 +1,4 @@
-package br.com.agla.exceptions;
+package exception;
 
 public class TurmaInexistenteExeption extends Exception {
 	private static final long serialVersionUID = 1L;

@@ -1,4 +1,4 @@
-package br.com.agla.exceptions;
+package exception;
 
 public class TelefoneJaExisteException extends Exception {
 
