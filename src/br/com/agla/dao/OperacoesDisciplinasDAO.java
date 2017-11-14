@@ -1,4 +1,4 @@
-package br.com.agla.dao;
+package dao;
 
 import exception.JaExisteException;
 import exception.ErroConexaoException;

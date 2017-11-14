@@ -1,4 +1,4 @@
-package br.com.agla.dao;
+package dao;
  
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -548,7 +548,7 @@ public class ProfessorDAO implements OperacoesProfessorDAO{
 	 * @throws ProfessorInexistenteException 
 	 * 
 	 * */
-	public Object pesquisaNome(String nomeCompleto) throws ErroConexaoException, NaoExisteException {
+	public Object pesquisaNome(String nomeCompleto) throws ErroConexaoException, ProfessorInexistenteException {
 		Professor p = new Professor();
 		int id = 0;
 		
@@ -567,7 +567,7 @@ public class ProfessorDAO implements OperacoesProfessorDAO{
 			throw new ErroConexaoException("Erro connect pesquisaNome(nomeCompleto)");
 		}
 		if(id==0) {
-			throw new NaoExisteException("Professor nao encontrado");
+			throw new ProfessorInexistenteException("Professor nao encontrado");
 		}
 		
 		// Pesquisando todos os dados jah que agora tem o id do aluno
@@ -655,7 +655,7 @@ public class ProfessorDAO implements OperacoesProfessorDAO{
 		return 0;
 	}
      
-	public Object professorInt(int id) throws ErroConexaoException, NaoExisteException {
+	public Object professorInt(int id) throws ErroConexaoException, ProfessorInexistenteException {
 		String sqlQuery = new StringBuilder().append("SELECT nome,id_professor FROM ")
 				.append(this.DADOS_PESSOAIS_PROFESSOR).append(" WHERE id_professor=?").toString();
 		String nome = "";
@@ -758,7 +758,7 @@ public class ProfessorDAO implements OperacoesProfessorDAO{
 			
 			while(rs.next()) {
 				// pegando id's dos nomes iguais ignorando maiusculas e minusculas
-				if(!nome.equals("") && rs.getString("nome").toUpperCase().startsWith(nome.toUpperCase())) {
+				if(rs.getString("nome").toUpperCase().startsWith(nome.toUpperCase())) {
 					
 					cpfs[i] = rs.getString("cpf");
 					i++;

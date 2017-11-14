@@ -1,4 +1,4 @@
-package br.com.agla.dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,6 +16,10 @@ public class ConnectionFactory {
 	 * 
 	 * */
 	public Connection getConnection() throws SQLException {
+		
+		if(System.getProperty("os.name").equalsIgnoreCase("linux"))
+			return DriverManager.getConnection("jdbc:sqlite:bd//agla.db");
+			
 		return DriverManager.getConnection("jdbc:sqlite:bd\\agla.db");
 	}
 	

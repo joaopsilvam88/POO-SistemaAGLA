@@ -1,36 +1,39 @@
-package br.com.agla.dao;
+package dao;
  
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
  
-import br.com.agla.exceptions.*;
-import br.com.agla.classes.*;
+import exception.*;
+import Sistema.*;
  
-public class DisciplinasDAO {// implements OperacoesDisciplinasDAO{
-    private final String DISCIPLINAS = "Disciplinas";
-    private final String TURMA = "Turma";
-    private final String LECIONA = "Leciona";
-    private final String HISTORICO = "Historico";
-    private Connection connection;
-    private ProfessorDAO pdao;
-    private AlunoDAO adao;
-    private TurmaDAO tdao;
- 
-    public DisciplinasDAO() {
-        try {
-            connection = new ConnectionFactory().getConnection();
-            adao = new AlunoDAO();
-            pdao = new ProfessorDAO();
-            tdao = new TurmaDAO();
- 
-        } catch (SQLException e) {
- 
-        }
-    }
- 
+public class DisciplinasDAO {
+
+	private final String DISCIPLINAS = "Disciplinas";
+	private final String TURMA = "Turma";
+	private final String LECIONA = "Leciona";
+	private final String HISTORICO = "Historico";
+
+	private Connection connection;
+	private ProfessorDAO pdao;
+	private AlunoDAO adao;
+	private TurmaDAO tdao;
+
+	public DisciplinasDAO() {
+		try {
+			connection = new ConnectionFactory().getConnection();
+			adao = new AlunoDAO();
+			pdao = new ProfessorDAO();
+			tdao = new TurmaDAO();
+
+		} catch (SQLException e) {
+
+		}
+	}
+
     // TODO: CONTINUAR AQUI a formatar
      
     /**
@@ -256,7 +259,7 @@ public class DisciplinasDAO {// implements OperacoesDisciplinasDAO{
             }
  
         } catch (SQLException e) {
-            throw new ErroConexaoException("Erro ao pesquisar disciplina");
+            throw new ErroConexaoException("Erro ao r disciplina");
         }
         return null;
     }
@@ -576,7 +579,31 @@ public class DisciplinasDAO {// implements OperacoesDisciplinasDAO{
         }
         return false;
     }
-     
+    
+    /**
+     * Nome da disciplina 
+     * 
+     * */
+    public String existeDisciplina1(int idDisciplina) throws ErroConexaoException{
+        
+        StringBuilder sqlQuery = new StringBuilder().append("SELECT nome FROM ")
+                .append(this.DISCIPLINAS)
+                .append(" WHERE idDisciplina=?");
+        
+        try (PreparedStatement pstmt = connection.prepareStatement(sqlQuery.toString())) {
+            pstmt.setInt(1, idDisciplina);
+            ResultSet rs = pstmt.executeQuery();
+             
+            if(rs.next()) {
+                return rs.getString("nome");
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            throw new ErroConexaoException("Erro conection metodo existeProfessor1");
+        }
+        return "";
+    }
+    
      
     /**Retorna o id da disciplina 
      * Retorna o id ou 0 senao achar */
@@ -911,107 +938,254 @@ public class DisciplinasDAO {// implements OperacoesDisciplinasDAO{
 		}
 	}
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //===========    
-//	/**
-//    *    0     1       2       3           4             5     6     = 7   <br>
-//    * [nota1][nota2][nota3][notaFinal][nomeDisciplina][turno][turma]   <- completo <br>
-//    * [nota1][nota2]  [ ]      [ ]    [nomeDisciplina][turno][turma]	<- senao estiver completo <br>
-//    * [nota1] [ ]     [ ]      [ ]    [nomeDisciplina][turno][turma]   <- senao estiver completo
-//    * 
-//    * */
-//	public String[][] historico(int idAluno, int bimestre) throws ErroConexaoException {
-//		StringBuilder sqlQuery = new StringBuilder().append("SELECT * FROM ").append(this.HISTORICO)
-//				.append(" WHERE id_aluno=? and bimestre=?");
-//		
-//		String[][] temp = new String[10][7];
-//		try (PreparedStatement pstmt = connection.prepareStatement(sqlQuery.toString())) {
-//			pstmt.setInt(1, idAluno);
-//			pstmt.setInt(2, bimestre);
-//			
-//			ResultSet rs = pstmt.executeQuery();
-//			int i=0;
-//			while (rs.next()) {
-//				
-//				temp[i][4] = String.valueOf(rs.getInt("id_disciplina")); // id -> nomeDisciplina
-//				
-//				boolean v = false;
-//				int a=0;
-//				while(a<i) { // a<i
-//					// se achou, nao-icrementa
-//					// pega a posicao do a e coloca o valor dados[a][<indiceNota>] = temp[a][<indiceNota>]
-//					if(Integer.parseInt(temp[a][4]) == rs.getInt("id_disciplina")) {
-//						v = true;
-//						break;
-//					}
-//					a++;
-//				}
-//				
-//				int identNota = rs.getInt("identNota");
-//				if(v) {
-//					if (identNota == 1)
-//						temp[a][0] = String.valueOf(rs.getDouble("nota")); // 1 nota
-//
-//					else if (identNota == 2)
-//						temp[a][1] = String.valueOf(rs.getDouble("nota")); // 2 nota
-//
-//					else if (identNota == 3)
-//						temp[a][2] = String.valueOf(rs.getDouble("nota")); // 3 nota
-//
-//					else if (identNota == 0)
-//						temp[a][3] = String.valueOf(rs.getDouble("nota")); // final
-//				}else {
-//					if(identNota == 1) {
-//						temp[i][0] = String.valueOf(rs.getDouble("nota")); // 1 nota					
-//					}else if (identNota == 2) {
-//						temp[i][1] = String.valueOf(rs.getDouble("nota")); // 2 nota
-//					}else if (identNota == 3) {
-//						temp[i][2] = String.valueOf(rs.getDouble("nota")); // 3 nota
-//					}else if(identNota == 0){
-//						temp[i][3] = String.valueOf(rs.getDouble("nota")); // final
-//					}
-//					// acrescentando no i
-//					i++;
-//				}
-//
-//			} // fim while  rs.next
-//			
-//			rs.close();
-//			String[][] dados = new String[i][7];
-//			for(int j=0;j<i;j++) {
-//				if(temp[j][0] == null) dados[j][0] = " "; // nota1
-//				else dados[j][0] = temp[j][0];
-//				
-//				if(temp[j][1] == null) dados[j][1] = " "; // nota2
-//				else dados[j][1] = temp[j][1];
-//				
-//				if(temp[j][2] == null) dados[j][2] = " "; // nota3
-//				else dados[j][2] = temp[j][2];
-//				
-//				if(temp[j][3] == null) dados[j][3] = " "; // final
-//				else dados[j][3] = temp[j][3];
-//				
-//				String[][] infoDisciplina = disciplinaID(Integer.parseInt(temp[j][4]));
-//				
-//				dados[j][4] = infoDisciplina[0][0];// nome
-//				dados[j][5] = infoDisciplina[0][1];// turno
-//				dados[j][6] = infoDisciplina[0][2];// turma
-//			}
-//			return dados;
-//			
-//		} catch (SQLException ex) {
-//			throw new ErroConexaoException("Erro conection metodo historico(int idAluno, int bimestre)");
-//		}
-//	}
-   
-    
-}
+	
+	public List<Disciplina> getDisciplinas() throws ErroConexaoException{
+		
+		// pegando todos os ids dos professores que lescionam alguma disciplina
+		StringBuilder sqlQueryLeciona = new StringBuilder().append("SELECT id_professor,id_disciplina FROM ")
+				.append(this.LECIONA);
+		
+		 // ids dos professores
+		int[] idsP = new int[50];
+		// ids disciplina
+		int[] idsD = new int[50];
+		int i=0;
+		try (PreparedStatement pstmt = connection.prepareStatement(sqlQueryLeciona.toString());
+				ResultSet rs = pstmt.executeQuery()) {
+    		while(rs.next()) {
+    			idsP[i] = rs.getInt("id_professor");
+    			idsD[i] = rs.getInt("id_disciplina");
+    			i++;
+    		}
+    	} catch(SQLException e) {
+    		throw new ErroConexaoException("Erro connection metodo getDisciplinas()");
+    	}
+		
+		
+		// Criando objetos e colocando eles no array
+		StringBuilder sqlQueryDisciplina = new StringBuilder().append("SELECT * FROM ")
+				.append(this.DISCIPLINAS);
+
+		List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+		try (PreparedStatement pstmt = connection.prepareStatement(sqlQueryDisciplina.toString());
+				ResultSet rs = pstmt.executeQuery()) {
+    		while(rs.next()) {
+    			Disciplina d = new Disciplina();
+    			d.setId(rs.getInt("idDisciplina"));
+    			d.setNome(rs.getString("nome"));
+    			d.setTurno(rs.getString("turno"));
+    			d.setTurma(rs.getString("turma")); 
+    			
+    			for(int j=0;j<i;j++) {
+    				try {
+    					if(d.getId() == idsD[j]) {
+    						d.setProfessor((Professor) pdao.professorInt(idsP[j]));
+    					}
+						
+					} catch (ProfessorInexistenteException e) {
+						throw new ErroConexaoException(" Erro connection metodo getDisciplinas()");
+					}
+    			}    			
+    			disciplinas.add(d);
+    		}
+    	} catch(SQLException e) {
+    		throw new ErroConexaoException("Erro connection metodo getDisciplinas()");
+    	}
+		return disciplinas;
+	}
+	
+	
+	
+	/**
+	 * nomeDisci   média    média      média     média      média de cada bimestre<br>
+ 	 *disciplina1 [nome]    [nota1]   [nota2]   [nota3]    [nota4]  [nota5]   [nota6]
+	 *disciplina2 [nome]    [nota1]   [nota2]   [nota3]    [nota4]  [nota5]   [nota6]
+	 *
+	 * @throws ErroConexaoException 
+	 * 
+	 * */
+	public String[][] boletim(int idAluno) throws ErroConexaoException {
+		
+		// Existem 4 bimestes
+		StringBuilder sqlQuery = new StringBuilder().append("SELECT * FROM ")
+		.append(this.HISTORICO).append(" WHERE ").append(this.HISTORICO).append(".id_aluno=?");
+		int[] idsPegos = new int[10]; // define, tbm, a quantidade de disciplinas
+		String[][] dados = new String[1000][5];
+		int i=0;
+		try (PreparedStatement pstmt = connection.prepareStatement(sqlQuery.toString())) {
+			pstmt.setInt(1, idAluno);
+			ResultSet rs = pstmt.executeQuery();
+			
+			double media1 = 0.0;
+			double media2 = 0.0;
+			double media3 = 0.0;
+			double media4 = 0.0;
+			
+			while(rs.next()) {
+				int idD = rs.getInt("id_disciplina");
+				for(int a=0;a<idsPegos.length;a++) {
+					if(i==0) {
+						String[][] bimestre_aluno =  bimestreAluno(idAluno, idD);
+						dados[i][0]  = bimestre_aluno[0][0]; // nome disciplina
+						i++;
+					
+					}else if(idsPegos[a] > 0 && idsPegos[a] != idD) {
+						dados[i][0] = boletim(idAluno)[i][0]; // nome disciplina
+						i++;
+					}
+					
+				} // fim for
+				idsPegos[i] = idD;
+			} // fim while
+			
+			rs.close();
+			
+			
+			// seis bimestres
+			int saltos = 0;
+			double media = 0.0;
+			
+			// 4 notas em um bimestre
+			for(int b=0;b<6;b++) { // ->
+									   // |
+				for(int c=0;c<i;c++) { // v
+ 					String[][] valor = bimestreAluno(idAluno, b);
+					if(!valor[c][b].equals("-")) {
+						
+						// entrando nas notas, que sao 4
+						int d=b;
+						while(d<5) {
+							if(!valor[c][d].equals("-")) {
+								media = Double.parseDouble(valor[c][b]);
+								saltos++;
+								d++;
+							}
+						} // while d<5
+					} // if -
+					dados[b][c] = String.valueOf((media/saltos));
+					
+				} //for c
+			} // for b
+			
+			
+			return dados;
+    	} catch(SQLException e) {
+    		throw new ErroConexaoException("Erro connection metodo getDisciplinas()");
+    	}
+	}
+	
+	
+	
+	/**
+	 *  Retorna todos os dados como informados abaixo, com o valor do bimestre informado
+	 *  
+	 * <br> 
+	 * [nomeDisciplina][nota1][nota2][nota3][nota4]<br>
+	 * [nomeDisciplina][nota1][nota2][nota3][nota4]
+	 * 
+	 * @return <b>String[][]</b> um matriz com n linhas e 5 colunas
+	 * 
+	 * */
+	public String[][] bimestreAluno(int idAluno, int bimestre) throws ErroConexaoException {
+		StringBuilder sqlQueryID = new StringBuilder().append("SELECT * FROM ").append(this.HISTORICO)
+				.append(" WHERE id_aluno=? and bimestre=?");
+
+		String[][] temp = new String[20][5];
+		int i = 0;
+		// pegando apenas os id's das disciplinas
+		try (PreparedStatement pstmt = connection.prepareStatement(sqlQueryID.toString())) {
+			pstmt.setInt(1, idAluno);
+			pstmt.setInt(2, bimestre);
+
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				int a=0;
+				int id = rs.getInt("id_disciplina");
+				//System.out.println(rs.getInt("id_disciplina"));
+				boolean achou = false;
+				
+				// procurando o mesmo um id igual. Se achar não incrementa pra nao criar um linha
+				while (a < i) {
+
+					// se achar o id aqui, quer dizer que é a mesma disciplina, então, não precisa
+					// criar outra linha
+					if (temp[a][0] != null) {  //[1][3]    - 3
+						if(id == Integer.parseInt(temp[a][0])) {
+							achou = true;
+							//System.out.println("achou");
+							break;
+						}
+					}
+				a++;
+				}
+				if (!achou) {
+					temp[i][0] = String.valueOf(rs.getInt("id_disciplina"));
+					i++;
+					//System.out.println("nao achou");
+				}
+			}
+			rs.close();
+		} catch (SQLException ex) {
+			throw new ErroConexaoException("Erro conection metodo historico(int idAluno, int bimestre)");
+		}
+		
+		StringBuilder sqlQuery = new StringBuilder().append("SELECT * FROM ").append(this.HISTORICO)
+				.append(" WHERE id_disciplina=? AND bimestre=?");
+		
+		String[][] dados = new String[i][5];
+		for(int x=0;x<i;x++) {
+
+			// pegando os valores por de acordo com cada id
+			try (PreparedStatement pstmt = connection.prepareStatement(sqlQuery.toString())) {
+				pstmt.setInt(1, Integer.parseInt(temp[x][0]));
+				pstmt.setInt(2, bimestre);
+				dados[x][0] = disciplinaID(Integer.parseInt(temp[x][0]))[0][0]; // nome disciplina
+				
+				ResultSet rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					int identNota = rs.getInt("identNota");
+					//System.out.println("-" + identNota);
+					
+					if (identNota == 1)
+						dados[x][1] = String.valueOf(rs.getDouble("nota")); // 1 nota
+
+					else if (identNota == 2)
+						dados[x][2] = String.valueOf(rs.getDouble("nota")); // 2 nota
+
+					else if (identNota == 3)
+						dados[x][3] = String.valueOf(rs.getDouble("nota")); // 3 nota
+					
+					else if (identNota == 4)
+						dados[x][4] = String.valueOf(rs.getDouble("nota")); // 4 nota
+				}
+				rs.close();
+			} catch (SQLException ex) {
+				throw new ErroConexaoException("Erro conection metodo historico(int idAluno, int bimestre)");
+			}
+			
+		} // end for
+		
+		// tratamento de dados
+		for(int a=0;a<i;a++) {
+			
+			if(dados[a][1] == null) {
+				dados[a][1] = "-";
+			}
+			if(dados[a][2] == null) {
+				dados[a][2] = "-";
+			}
+			if(dados[a][3] == null) {
+				dados[a][3] = "-";
+			}
+			if(dados[a][4] == null) {
+				dados[a][4] = "-";
+			}
+		}
+		return dados;
+	}
+	
+	
+	
+} // fim class

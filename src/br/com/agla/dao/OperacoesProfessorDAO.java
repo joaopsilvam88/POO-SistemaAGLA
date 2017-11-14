@@ -1,4 +1,4 @@
-package br.com.agla.dao;
+package dao;
 
 import java.util.List;
 

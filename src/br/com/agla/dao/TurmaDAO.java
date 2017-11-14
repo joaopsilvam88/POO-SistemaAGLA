@@ -1,4 +1,4 @@
-package br.com.agla.dao;
+package dao;
  
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +14,7 @@ public class TurmaDAO {
      
     private Connection connection;
     private final String TURMA="Turma";
-     
+    
     public TurmaDAO()
     {
         try {

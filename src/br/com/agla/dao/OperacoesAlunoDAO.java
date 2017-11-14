@@ -1,4 +1,4 @@
-package br.com.agla.dao;
+package dao;
 import java.util.List;
 
 import exception.*;
@@ -35,7 +35,6 @@ public interface OperacoesAlunoDAO {
 	
 	/**
 	 * O metodo precisa que ele tenha cpf informado
-	 * Informando o cpf, assim podera mudar o cpf atual que estara com o objeto aluno
  	 * @param cpf Uma String com o cpf existente
 	 * @throws ErroConexaoException Caso nao consiga se conectar com o banco de dados
 	 * @throws AlunoInexistenteException Caso nao exista um aluno no banco de dados
